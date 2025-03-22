@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" context="width=device-width, initial-scale=1.0">
+    <title>Anniversary Countdown</title>
+    <style>
+	body {
+	    font-family: 'Arial', sans-serif;
+	    background-color: #00002b;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    height: 100vh;
+	    margin: 0;
+	    position: relative;
+	    overflow: hidden;
+	}
+
+	.star {
+	    position: absolute;
+	    width: 10px;
+	    height: 10px;
+	    background-color: white;
+	    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+	    opacity: 0.8;
+	    animation: floatUp linear infinite, twinkle 3s infinite alternate;
+	}
+
+	@keyframes floatUp {
+	    0% {
+		transform: translateY(0);
+		opacity: 1;
+	    }
+	    100% {
+		transform: translateY(-120vh);
+		opacity: 0;
+	    }
+	}
+
+	@keyframes twinkle {
+	   0% { opacity: 0.8; transform: scale(1); }
+	   100% { opacity: 1; transform: scale(1.2); }
+	}
+
+	.countdown-container {
+	    text-align: center;
+	    background-color: #fff;
+	    border-status: 8px;
+	    padding: 20px;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	    width: 300px;
+	    z-index: 10;
+	    position: relative;
+	}
+
+	h1 {
+	    font-size: 24px;
+	    margin-bottom: 20px;
+	}
+
+	#countdown {
+	    font-size: 32px;
+	    font-weight: bold;
+	    color: #ff4d4d; */ might change later idk */
+	}
+
+	#messagelol {
+	    font-size: 22px;
+	    margin-top: 20px;
+	    color: #4caf50; */ might also change bc indecisive ig */
+	}
+
+	#music-btn {
+	    position: fixed;
+	    bottom: 20px;
+	    right: 20px;
+	    background: #9aab89;
+	    color: white;
+	    border: none;
+	    padding: 10px 15px;
+	    font-size: 16px;
+	    border-radius: 50%;
+	    cursor: pointer;
+	    transition: 0.3s;
+	}
+	
+	#music-btn:hover {
+	    background: #320261;
+	}
+
+	h2 {
+	    font-size: 28px;
+	    color: #ff4081; 
+	    font-family: 'Cursive', sans-serif;
+	    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+	    background: linear-gradient(45deg, #ff4081, #ff80ab);
+	    -webkit-background-clip: text;
+	    color: transparent;
+	    animation: fadeIn 2s ease-in-out;
+	}
+	
+
+	p {
+	    font-size: 18px;
+	    color: #333;
+	    font-family: 'Dancing Script', cursive;
+	    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+	    line-height: 1.5;
+	    margin-top: 20px;
+	    padding: 10px;
+	    background-color: rgba(255, 255, 255, 0.7);
+	    border-radius: 5px;
+	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	    width: 90%
+	    max-width: 500px;
+	    margin-left: auto;
+	    margin-right: auto;
+	}
+
+	@keyframes fadeIn {
+	    0% {
+		opacity: 0;
+		transform: translateY(-20px);
+	    }
+	    100% {
+		opacity: 1;
+		transform: translateY(0);
+	    }
+	}
+    </style>
+</head>
+<body>
+    <div id="stars-container"></div>
+
+    <div class="countdown-container">
+	<h1> Countdown For Our Anniversary! <3</h1>
+	<div id="countdown"></div> 
+	<div id="message" style="display:none;">
+	    <h2>Happy Anniversary, Bunny!</h2>
+	    <p>I love you more than words can say. You make my everyday special, and I'm so happy and excited to be with you for 2 months! You make me happier than words can express, and you make me feel loved everyday unlike anybody else. You're the star that shines the brightest in the night sky, Skylar.</p>
+	</div>
+    </div>
+
+    <button id="music-btn">🎵</button>
+    <audio id="bg-music" loop>
+	<source src="heavy-love.mp3" type="audio/mpeg">
+	Your browser does not support the audio element.
+    </audio>
+
+    <script>
+	const music = document.getElementById("bg-music");
+	const musicBtn = document.getElementById("music-btn");
+	
+	let isPlaying = false;
+
+	musicBtn.addEventListener("click", () => {
+	    if (isPlaying) {
+		music.pause();
+		musicBtn.innerText = "🎵";
+	    } else {
+		music.play();
+		musicBtn.innerText = "⏸️";
+	    }
+	    isPlaying = !isPlaying;
+	});
+
+	function createStars() {
+	    const starsContainer = document.getElementById('stars-container');
+	    const numStars = 50;
+
+	    for (let i = 0; i < numStars; i++) {
+		let star = document.createElement("div");
+		star.classList.add("star");
+
+		let size = Math.random() * 8 + 4;
+		star.style.width = `${size}px`;
+		star.style.height = `${size}px`;
+		
+		star.style.left = `${Math.random() * 100}vw`;
+		star.style.top = `${Math.random() * 100}vh`;
+		star.style.bottom = `-10px`;
+		let duration = Math.random() * 5 + 5;
+		star.style.animation = `floatUp ${duration}s linear infinite, twinkle 3s infite alternate`;
+
+		starsContainer.appendChild(star);
+	   }
+	}
+	
+	createStars();
+
+	const anniversaryDate = new Date("2025-03-25T00:00").getTime();
+	const countdownInterval = setInterval(function() {
+	    const now = new Date().getTime();
+	    const timeRemaining = anniversaryDate - now;
+
+	    const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+	    const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+	    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+	    document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+	    if (timeRemaining < 0) {
+		clearInterval(countdownInterval);
+		document.getElementById("countdown").style.display = "none";
+		document.getElementById("message").style.display = "block";
+		return;
+	    }
+	}, 1000);
+    </script>
+</body>
+</html>
